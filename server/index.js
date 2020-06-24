@@ -18,7 +18,7 @@ io.on("connection", (socket)=>{
         if(error) return callback(error);
 
         socket.emit("message", {user:"admin", text:`${user.name} joined ${user.room}`});
-        socket.broadcast.to(user.room).emit("message", {user:"admin", message:`${user.name} has joined`});
+        socket.broadcast.to(user.room).emit("message", {user:"admin", text:`${user.name} has joined`});
 
         socket.join(user.room);
 
@@ -34,7 +34,11 @@ io.on("connection", (socket)=>{
     });
 
     socket.on("disconnect", ()=>{
-        console.log("User left");
+        const user = removeUser(socket.id);
+
+        if(user){
+            io.to(user.room).emit("message", {user:"admin", text:`${user.name} has left`});
+        }
     });
 });
 
