@@ -53,16 +53,28 @@ const Chat=({location})=>{
     console.log(message, messages);
     return(
         <div>
-            <div>
             <Header room={room}/>
-            <Messages messages={messages} name={name}/>
-            <Input 
-                message={message}
-                setMessage={setMessage}
-                sendMessage={sendMessage}
-            />
+            <div className="card">
+                <div className="card-header">
+                    <h5 class="card-title">Room: {room}</h5>
+                </div>
+                
+                <div class="row">
+                    <div class="col-8">
+                        <div class="card-body">
+                            <Messages messages={messages} name={name}/>
+                            <Input 
+                                message={message}
+                                setMessage={setMessage}
+                                sendMessage={sendMessage}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-4">
+                        <TextContainer users={users}/>
+                    </div>
+                </div>
             </div>
-            <TextContainer users={users}/>
         </div>
     );
 }

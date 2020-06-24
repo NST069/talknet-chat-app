@@ -7,20 +7,14 @@ const Message = ({message: {user, text}, name})=>{
     let sentByCurrentUser = user===trimmedName;
     
     return(
-        sentByCurrentUser?
-        (
-            <div>
-                <p>Me</p>
-                <p>{Reactemoji.emojify(text)}</p>
-            </div>
-        )
-        :
-        (
-            <div>
-                <p>{user}</p>
-                <p>{Reactemoji.emojify(text)}</p>
-            </div>
-        )
+        sentByCurrentUser
+        ?<li className="list-group-item active">
+            <p class="mb-1">{Reactemoji.emojify(text)}</p>
+        </li>
+        :<li class="list-group-item">
+            <p class="mb-1">{Reactemoji.emojify(text)}</p>
+            <small class="text-muted">{user}</small>
+        </li>
     );
 
 };

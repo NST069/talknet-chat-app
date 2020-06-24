@@ -45,6 +45,7 @@ io.on("connection", (socket)=>{
 
         if(user){
             io.to(user.room).emit("message", {user:"admin", text:`${user.name} has left`});
+            io.to(user.room).emit("roomData", {room: user.room, users: getUsersInRoom(user.room)});
         }
     });
 });

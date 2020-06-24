@@ -2,17 +2,17 @@ import React from "react";
 
 const TextContainer = ({users})=>{
     return(
-        <div>
-            {users ?
-            <div>
+        <ul className="list-group list-group-flush">
+            <li className="list-group-item active">Users in Room: {users.length}</li>
+            {users 
+            ?<div>
                 {users.map((user)=>
-                    <div key={user.id}>
-                        <p>{user.name}</p>
-                    </div>
+                    <li key={user.id} className="list-group-item">{user.name}</li>
                 )}
             </div>
             : null}
-        </div>
+        </ul>
+        
     );
 
 };
