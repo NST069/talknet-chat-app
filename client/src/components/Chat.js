@@ -15,7 +15,7 @@ const Chat=({location})=>{
     const [messages, setMessages] = useState([]); 
     const [message, setMessage] = useState(""); 
     const [users, setUsers] = useState([]);    
-    const endpoint = "localhost:5000";
+    const endpoint = "https://talknet-chat-app.herokuapp.com/";
 
     useEffect(()=>{
         const {name, room} = queryString.parse(location.search);
