@@ -4,6 +4,7 @@ import io from "socket.io-client";
 
 import Header from "./Header";
 import Input from "./Input";
+import Messages from "./Messages";
 
 let socket;
 
@@ -48,6 +49,7 @@ const Chat=({location})=>{
     return(
         <div>
             <Header room={room}/>
+            <Messages messages={messages} name={name}/>
             <Input 
                 message={message}
                 setMessage={setMessage}
