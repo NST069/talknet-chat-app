@@ -37,6 +37,9 @@ const Chat=({location})=>{
         socket.on("message", (message)=>{
             setMessages([...messages, message]);
         });
+        socket.on("systemMessage",(message)=>{
+            setMessages([...messages, {user:null, text:message.text}]);
+        });
         socket.on("roomData", ({users})=>{
             setUsers(users);
         });

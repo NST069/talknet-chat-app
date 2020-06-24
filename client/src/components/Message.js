@@ -6,21 +6,26 @@ const Message = ({message: {user, text}, name})=>{
 
     let sentByCurrentUser = user===trimmedName;
     let sentToCurrentUser = text.includes(`@${name}`) || text.includes(`@${trimmedName}`);
+    let sentBySystem = user===null;
     
     return(
-        sentByCurrentUser
-        ?<li className="list-group-item list-group-item-primary">
-            <p className="mb-1">{Reactemoji.emojify(text)}</p>
+        sentBySystem
+        ?<li className="list-group-item list-group-item-light">
+            <small className="text-muted">{text}</small>
         </li>
-        : sentToCurrentUser
-            ?<li className="list-group-item list-group-item-warning">
+        :sentByCurrentUser
+            ?<li className="list-group-item list-group-item-primary">
                 <p className="mb-1">{Reactemoji.emojify(text)}</p>
-                <small className="text-muted">{user}</small>
             </li>
-            :<li className="list-group-item">
-                <p className="mb-1">{Reactemoji.emojify(text)}</p>
-                <small className="text-muted">{user}</small>
-            </li>
+            : sentToCurrentUser
+                ?<li className="list-group-item list-group-item-warning">
+                    <p className="mb-1">{Reactemoji.emojify(text)}</p>
+                    <small className="text-muted">{user}</small>
+                </li>
+                :<li className="list-group-item">
+                    <p className="mb-1">{Reactemoji.emojify(text)}</p>
+                    <small className="text-muted">{user}</small>
+              </li>
     );
 
 };
