@@ -74,7 +74,11 @@ const Chat=({location})=>{
                         </div>
                     </div>
                     <div className="col-4">
-                        <TextContainer users={users}/>
+                        <TextContainer 
+                            users={users}
+                            message={message}
+                            setMessage={setMessage}
+                            />
                     </div>
                 </div>
             </div>
