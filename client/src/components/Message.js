@@ -1,13 +1,30 @@
 import React from "react";
 import Reactemoji from "react-emoji";
+const reactStringReplace = require('react-string-replace')
 
 const Message = ({message: {user, text}, name, setAt})=>{
     const trimmedName= name.trim().toLowerCase();
 
+    const Text = ({txt})=>{
+        txt = reactStringReplace(txt, /@(\w+)/g, (match, i) => (
+            <span className="text-primary" onClick={(event)=>{
+                setAt(event.target.textContent.substring(1));
+            }}>@{match}</span>
+          ));
+        return(
+            <p className="mb-1">{txt}</p>
+        );
+
+    }
+
     let sentByCurrentUser = user===trimmedName;
-    let sentToCurrentUser = text.includes(` @${name} `) || text.includes(` @${trimmedName} `);
+    //let sentToCurrentUser = text.includes(` @${name} `) || text.includes(` @${trimmedName} ` || text.includes(` @all `));
+    let rg = new RegExp(`@${name}\ +`,"i");
+    let sentToCurrentUser = text.match(rg) || text.match(/@all/g);
     let sentBySystem = user===null;
-    
+
+    text = Reactemoji.emojify(text);
+
     return(
         sentBySystem
         ?<li className="list-group-item list-group-item-light">
@@ -15,17 +32,17 @@ const Message = ({message: {user, text}, name, setAt})=>{
         </li>
         :sentByCurrentUser
             ?<li className="list-group-item list-group-item-primary">
-                <p className="mb-1">{Reactemoji.emojify(text)}</p>
+                <Text txt={text}/>
             </li>
             : sentToCurrentUser
                 ?<li className="list-group-item list-group-item-warning">
-                    <p className="mb-1">{Reactemoji.emojify(text)}</p>
+                    <Text txt={text}/>
                     <small className="text-muted" onClick={(event)=>{
                         setAt(event.target.textContent);
                     }}>{user}</small>
                 </li>
                 :<li className="list-group-item">
-                    <p className="mb-1">{Reactemoji.emojify(text)}</p>
+                    <Text txt={text}/>
                     <small className="text-muted" onClick={(event)=>{
                         setAt(event.target.textContent);
                     }}>{user}</small>

@@ -66,12 +66,12 @@ const Chat=({location})=>{
             <Header room={room}/>
             <div className="card">
                 <div className="card-header">
-                    <h5 class="card-title">Room: {room}</h5>
+                    <h5 className="card-title">Room: {room}</h5>
                 </div>
                 
-                <div class="row">
-                    <div class="col-8">
-                        <div class="card-body">
+                <div className="row">
+                    <div className="col-8">
+                        <div className="card-body">
                             <Messages 
                                 messages={messages} 
                                 name={name}
