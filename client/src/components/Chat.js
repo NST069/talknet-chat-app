@@ -23,6 +23,7 @@ const Chat=({location})=>{
         if(!message.includes(atUser))
             setMessage(message + (message.endsWith(' ')?atUser.substring(1):atUser));
     }
+    const isOnline = name => users.find((u)=>u.name===name)!==undefined;
 
     useEffect(()=>{
         const {name, room} = queryString.parse(location.search);
@@ -76,6 +77,7 @@ const Chat=({location})=>{
                                 messages={messages} 
                                 name={name}
                                 setAt={setAt}
+                                isOnline={isOnline}
                             />
                             <Input 
                                 message={message}

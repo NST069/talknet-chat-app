@@ -2,14 +2,16 @@ import React from "react";
 import Reactemoji from "react-emoji";
 const reactStringReplace = require('react-string-replace')
 
-const Message = ({message: {user, text}, name, setAt})=>{
+const Message = ({message: {user, text}, name, setAt, isOnline})=>{
     const trimmedName= name.trim().toLowerCase();
 
     const Text = ({txt})=>{
         txt = reactStringReplace(txt, /@(\w+)/g, (match, i) => (
-            <span className="text-primary" onClick={(event)=>{
+            isOnline(match)
+            ? <span className="text-primary" onClick={(event)=>{
                 setAt(event.target.textContent.substring(1));
             }}>@{match}</span>
+            : <span className="text-muted">@{match}</span>
           ));
         return(
             <p className="mb-1">{txt}</p>
@@ -19,7 +21,7 @@ const Message = ({message: {user, text}, name, setAt})=>{
 
     let sentByCurrentUser = user===trimmedName;
     //let sentToCurrentUser = text.includes(` @${name} `) || text.includes(` @${trimmedName} ` || text.includes(` @all `));
-    let rg = new RegExp(`@${name}\ +`,"i");
+    let rg = new RegExp(`@${name} +`,"i");
     let sentToCurrentUser = text.match(rg) || text.match(/@all/g);
     let sentBySystem = user===null;
 

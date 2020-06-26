@@ -3,7 +3,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 
 import Message from "./Message";
 
-const Messages = ({messages, name, setAt})=>{
+const Messages = ({messages, name, setAt, isOnline})=>{
     return(
         <ScrollToBottom>
             <ul className="list-group">
@@ -13,6 +13,7 @@ const Messages = ({messages, name, setAt})=>{
                             message={message} 
                             name={name}
                             setAt={setAt}
+                            isOnline={isOnline}
                         />
                     </div>
                 )}
