@@ -1,6 +1,6 @@
 import React from "react";
 
-const TextContainer = ({users, message, setMessage})=>{
+const TextContainer = ({users, setAt})=>{
     return(
         <ul className="list-group list-group-flush">
             <li className="list-group-item active">Users in Room: {users.length}</li>
@@ -8,9 +8,7 @@ const TextContainer = ({users, message, setMessage})=>{
             ?<div>
                 {users.map((user)=>
                     <li key={user.id} className="list-group-item" onClick={(event)=>{
-                        let atUser = `@${event.target.textContent}`;
-                        if(!message.includes(atUser))
-                            setMessage(message + (message.endsWith(' ')?"":" ") + atUser);
+                        setAt(event.target.textContent);
                     }}>{user.name}</li>
                 )}
             </div>

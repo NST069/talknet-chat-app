@@ -15,7 +15,14 @@ const Chat=({location})=>{
     const [messages, setMessages] = useState([]); 
     const [message, setMessage] = useState(""); 
     const [users, setUsers] = useState([]);    
-    const endpoint = "https://talknet-chat-app.herokuapp.com/";
+    //const endpoint = "https://talknet-chat-app.herokuapp.com/";
+    const endpoint = "localhost:5000";
+
+    const setAt = (name)=>{
+        let atUser = ` @${name} `;
+        if(!message.includes(atUser))
+            setMessage(message + (message.endsWith(' ')?atUser.substring(1):atUser));
+    }
 
     useEffect(()=>{
         const {name, room} = queryString.parse(location.search);
@@ -65,7 +72,11 @@ const Chat=({location})=>{
                 <div class="row">
                     <div class="col-8">
                         <div class="card-body">
-                            <Messages messages={messages} name={name}/>
+                            <Messages 
+                                messages={messages} 
+                                name={name}
+                                setAt={setAt}
+                            />
                             <Input 
                                 message={message}
                                 setMessage={setMessage}
@@ -76,8 +87,7 @@ const Chat=({location})=>{
                     <div className="col-4">
                         <TextContainer 
                             users={users}
-                            message={message}
-                            setMessage={setMessage}
+                            setAt={setAt}
                             />
                     </div>
                 </div>

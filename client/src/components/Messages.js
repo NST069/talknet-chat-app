@@ -3,13 +3,17 @@ import ScrollToBottom from "react-scroll-to-bottom";
 
 import Message from "./Message";
 
-const Messages = ({messages, name})=>{
+const Messages = ({messages, name, setAt})=>{
     return(
         <ScrollToBottom>
             <ul className="list-group">
                 {messages.map((message, i)=>
                     <div key = {i}>
-                        <Message message={message} name={name}/>
+                        <Message 
+                            message={message} 
+                            name={name}
+                            setAt={setAt}
+                        />
                     </div>
                 )}
             </ul>
