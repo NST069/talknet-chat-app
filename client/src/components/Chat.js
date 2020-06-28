@@ -61,10 +61,22 @@ const Chat=({location})=>{
         }
     };
 
+    const Search = (event, sname)=>{
+        event.preventDefault();
+
+        if(sname){
+            socket.emit("search", sname, (user)=>{
+                (user===null)
+                ? alert(`${sname} is offline`)
+                : alert(`${user.name} is in room ${user.room}`);
+            });
+        }
+    };
+
     console.log(message, messages);
     return(
         <div>
-            <Header room={room}/>
+            <Header room={room} Search={Search}/>
             <div className="card">
                 <div className="card-header">
                     <h5 className="card-title">Room: {room}</h5>

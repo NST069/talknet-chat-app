@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const PORT = process.env.PORT || 5000;
 
-const {addUser, getUser, getUsersInRoom, removeUser} = require("./users");
+const {addUser, getUser, getUserByName, getUsersInRoom, removeUser} = require("./users");
 
 const router = require("./router");
 
@@ -38,6 +38,11 @@ io.on("connection", (socket)=>{
         io.to(user.room).emit("roomData", {room: user.room, users: getUsersInRoom(user.room)});
 
         callback();
+    });
+
+    socket.on("search", (name, callback)=>{
+        const user = getUserByName(name);
+        callback(user);
     });
 
     socket.on("disconnect", ()=>{
