@@ -16,6 +16,19 @@ const io = socketio(server);
 app.use(router);
 app.use(cors());
 
+require("dotenv").config();
+const mongoose = require("mongoose");
+mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+
+const db = mongoose.connection;
+db.on("error", err=>console.log(err));
+db.once("open", ()=>console.log("db connected"));
+
+app.use(express.json());
+
+const users = require("./m-users");
+app.use("/users", users);
+
 io.on("connection", (socket)=>{
     socket.on("join", ({name, room}, callback)=>{
         const {error, user} = addUser({id:socket.id, name, room});
