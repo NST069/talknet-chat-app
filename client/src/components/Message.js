@@ -1,8 +1,12 @@
 import React from "react";
 import Reactemoji from "react-emoji";
+
+import {Chip, Avatar, Typography} from "@material-ui/core";
+
 const reactStringReplace = require('react-string-replace')
 
 const Message = ({message: {user, text}, name, setAt, isOnline})=>{
+
     const trimmedName= name.trim().toLowerCase();
 
     const Text = ({txt})=>{
@@ -14,7 +18,7 @@ const Message = ({message: {user, text}, name, setAt, isOnline})=>{
             : <span className="text-muted">@{match}</span>
           ));
         return(
-            <p className="mb-1">{txt}</p>
+            <Typography>{txt}</Typography>
         );
 
     }
@@ -29,28 +33,16 @@ const Message = ({message: {user, text}, name, setAt, isOnline})=>{
 
     return(
         sentBySystem
-        ?<li className="list-group-item list-group-item-light">
-            <small className="text-muted">{text}</small>
-        </li>
+        ?<Chip variant="outlined" size="small" label={<Text txt={text}/>} />
         :sentByCurrentUser
-            ?<li className="list-group-item list-group-item-primary">
-                <Text txt={text}/>
-            </li>
+            ?<Chip color="primary" label={<Text txt={text}/>} />
             : sentToCurrentUser
-                ?<li className="list-group-item list-group-item-warning">
-                    <Text txt={text}/>
-                    <small className="text-muted" onClick={(event)=>{
-                        setAt(event.target.textContent);
-                    }}>{user}</small>
-                </li>
-                :<li className="list-group-item">
-                    <Text txt={text}/>
-                    <small className="text-muted" onClick={(event)=>{
-                        setAt(event.target.textContent);
-                    }}>{user}</small>
-              </li>
+                ?<Chip color="secondary" avatar={<Avatar  onClick={(event)=>{
+                    setAt(event.target.textContent);}}>{user}</Avatar>} label={<Text txt={text}/>} />
+                :<Chip avatar={<Avatar  onClick={(event)=>{
+                    setAt(event.target.textContent);}}>{user}</Avatar>} label={<Text txt={text}/>} />
+        
     );
-
 };
 
 export default Message;

@@ -3,9 +3,11 @@ import queryString from "query-string";
 import io from "socket.io-client";
 
 import Header from "./Header";
-import Input from "./Input";
+import MessageSender from "./MessageSender";
 import Messages from "./Messages";
 import TextContainer from "./TextContainer";
+
+import { Paper, Grid } from "@material-ui/core";
 
 let socket;
 
@@ -72,42 +74,35 @@ const Chat=({location})=>{
             });
         }
     };
-
-    console.log(message, messages);
-    return(
-        <div>
+    
+   return(
+       <div>
             <Header room={room} Search={Search}/>
-            <div className="card">
-                <div className="card-header">
-                    <h5 className="card-title">Room: {room}</h5>
-                </div>
-                
-                <div className="row">
-                    <div className="col-8">
-                        <div className="card-body">
-                            <Messages 
-                                messages={messages} 
-                                name={name}
-                                setAt={setAt}
-                                isOnline={isOnline}
-                            />
-                            <Input 
-                                message={message}
-                                setMessage={setMessage}
-                                sendMessage={sendMessage}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-4">
+            <Paper elevation={3}>
+                <Grid container spacing={3}>
+                    <Grid item xs={8}>
+                        <Messages 
+                            messages={messages} 
+                            name={name}
+                            setAt={setAt}
+                            isOnline={isOnline}
+                        />
+                        <MessageSender
+                            message={message}
+                            setMessage={setMessage}
+                            sendMessage={sendMessage}
+                        />
+                    </Grid>
+                    <Grid item xs={4}>
                         <TextContainer 
                             users={users}
                             setAt={setAt}
-                            />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+                        />
+                    </Grid>
+                </Grid>
+            </Paper>
+    </div>
+   );
 }
 
 export default Chat;
